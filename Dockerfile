@@ -1,4 +1,4 @@
-FROM ubuntu:14.04
+FROM 32bit/ubuntu:14.04
 
 MAINTAINER VyronLee <lwz_jz@hotmail.com>
 
@@ -12,7 +12,13 @@ RUN mkdir /android-dev
 RUN wget -P /tmp http://dl.google.com/android/android-sdk_r24.4.1-linux.tgz
 RUN tar -vzxf /tmp/android-sdk_r24.4.1-linux.tgz -C /tmp \
     && mv /tmp/android-sdk-linux /android-dev/android-sdk
-RUN echo yes | /android-dev/android-sdk/tools/android update sdk -u
+
+# 2016-03-01
+# 1- Android SDK Tools, revision 24.4.1
+# 3- Android SDK Platform-tools, revision 23.1
+# 4- Android SDK Build-tools, revision 23.0.2
+# 26- SDK Platform Android 6.0, API 23, revision 2
+RUN echo yes | /android-dev/android-sdk/tools/android update sdk -u -a -t 1,3,4,26
 
 #android ndk
 RUN wget -P /tmp http://dl.google.com/android/ndk/android-ndk-r10e-linux-x86_64.bin
