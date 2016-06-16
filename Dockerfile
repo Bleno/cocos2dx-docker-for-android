@@ -1,12 +1,12 @@
 FROM ubuntu:14.04
 
-MAINTAINER VyronLee <lwz_jz@hotmail.com>
+MAINTAINER Bleno <blenobok@gmail.com>
 
 RUN dpkg --add-architecture i386 \
     && dpkg --add-architecture i386 \
     && apt-get update \
     && apt-get install -y libstdc++6:i386 libgcc1:i386 zlib1g:i386 libncurses5:i386 \
-    && apt-get install -y python git wget make openjdk-7-jdk
+    && apt-get install -y python git wget make openjdk-7-jdk zip
 RUN mkdir /android-dev
 
 #=============================
@@ -23,9 +23,13 @@ RUN cd /tmp && ./android-ndk-r10e-linux-x86_64.bin \
     && mv /tmp/android-ndk-r10e /android-dev/android-ndk
 
 #android android-dev
-RUN wget -P /tmp http://dl.google.com/android/android-sdk_r24.3.1-linux.tgz
-RUN tar -vzxf /tmp/android-sdk_r24.3.1-linux.tgz -C /tmp \
-    && mv /tmp/android-sdk-linux /android-dev/android-sdk
+#RUN wget -P /tmp http://dl.google.com/android/android-sdk_r24.3.1-linux.tgz
+#RUN tar -vzxf /tmp/android-sdk_r24.3.1-linux.tgz -C /tmp \
+#    && mv /tmp/android-sdk-linux /android-dev/android-sdk
+RUN cd /tmp/ && wget http://dl.google.com/android/adt/22.6.2/adt-bundle-linux-x86_64-20140321.zip \
+    && unzip adt-bundle-linux-x86_64-20140321.zip && cd adt-bundle-linux-x86_64-20140321 \
+    && mv sdk/ /android-dev/ && cd /android-dev/ &&  mv sdk/ android-sdk/
+
 
 # 下面的几个id跟上面的http://dl.google.com/android/android-sdk_rXXX-linux.tgz相关，
 # 不同的sdk版本会有不同的ID列表，可通过android list sdk -a获取
@@ -76,7 +80,27 @@ ENV ANDROID_HOME=/android-dev/android-sdk \
     COCOS_TEMPLATES_ROOT=/cocos2dx/templates \
     PATH=$COCOS_TEMPLATES_ROOT:$PATH
 
+RUN echo export COCOS_X_ROOT=/ >> /root/.bashrc \
+    && echo export PATH=$COCOS_X_ROOT:$PATH >> /root/.bashrc \
+    && echo export COCOS_CONSOLE_ROOT=/cocos2dx/tools/cocos2d-console/bin >> /root/.bashrc \
+    && echo export PATH=$COCOS_CONSOLE_ROOT:$PATH >> /root/.bashrc \
+    && echo export COCOS_TEMPLATES_ROOT=/cocos2dx/templates >> /root/.bashrc \
+    && echo export PATH=$COCOS_TEMPLATES_ROOT:$PATH >> /root/.bashrc \
+    && echo export COCOS_CONSOLE_ROOT=/cocos2dx/tools/cocos2d-console/bin >> /root/.bashrc \
+    && echo export PATH=$COCOS_CONSOLE_ROOT:$PATH >> /root/.bashrc \
+    && echo export COCOS_TEMPLATES_ROOT=/cocos2dx/templates >> /root/.bashrc \
+    && echo export PATH=$COCOS_TEMPLATES_ROOT:$PATH >> /root/.bashrc \
+    && echo export ANDROID_SDK_ROOT=/android-dev/android-sdk >> /root/.bashrc \
+    && echo export PATH=$ANDROID_SDK_ROOT:$PATH >> /root/.bashrc \
+    && echo export PATH=$ANDROID_SDK_ROOT/tools:$ANDROID_SDK_ROOT/platform-tools:$PATH >> /root/.bashrc \
+    && echo export NDK_ROOT=/android-dev/android-ndk >> /root/.bashrc \
+    && echo export PATH=$NDK_ROOT:$PATH >> /root/.bashrc
+    #&& source /root/.bashrc
+
+RUN apt-get -y autoclean && apt-get -y autoremove
+
+
 #entrypoint
 WORKDIR /project
-ENTRYPOINT ["/cocos2dx/tools/cocos2d-console/bin/cocos"]
+#ENTRYPOINT ["/cocos2dx/tools/cocos2d-console/bin/cocos"]
 
