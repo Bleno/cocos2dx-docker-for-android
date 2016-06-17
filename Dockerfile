@@ -80,22 +80,22 @@ ENV ANDROID_HOME=/android-dev/android-sdk \
     COCOS_TEMPLATES_ROOT=/cocos2dx/templates \
     PATH=$COCOS_TEMPLATES_ROOT:$PATH
 
-RUN echo export COCOS_X_ROOT=/ >> /root/.bashrc \
-    && echo export PATH=$COCOS_X_ROOT:$PATH >> /root/.bashrc \
-    && echo export COCOS_CONSOLE_ROOT=/cocos2dx/tools/cocos2d-console/bin >> /root/.bashrc \
-    && echo export PATH=$COCOS_CONSOLE_ROOT:$PATH >> /root/.bashrc \
-    && echo export COCOS_TEMPLATES_ROOT=/cocos2dx/templates >> /root/.bashrc \
-    && echo export PATH=$COCOS_TEMPLATES_ROOT:$PATH >> /root/.bashrc \
-    && echo export COCOS_CONSOLE_ROOT=/cocos2dx/tools/cocos2d-console/bin >> /root/.bashrc \
-    && echo export PATH=$COCOS_CONSOLE_ROOT:$PATH >> /root/.bashrc \
-    && echo export COCOS_TEMPLATES_ROOT=/cocos2dx/templates >> /root/.bashrc \
-    && echo export PATH=$COCOS_TEMPLATES_ROOT:$PATH >> /root/.bashrc \
-    && echo export ANDROID_SDK_ROOT=/android-dev/android-sdk >> /root/.bashrc \
-    && echo export PATH=$ANDROID_SDK_ROOT:$PATH >> /root/.bashrc \
-    && echo export PATH=$ANDROID_SDK_ROOT/tools:$ANDROID_SDK_ROOT/platform-tools:$PATH >> /root/.bashrc \
-    && echo export NDK_ROOT=/android-dev/android-ndk >> /root/.bashrc \
-    && echo export PATH=$NDK_ROOT:$PATH >> /root/.bashrc
-    #&& source /root/.bashrc
+RUN echo 'export COCOS_X_ROOT=/' >> /root/.bashrc \
+    && echo 'export PATH=$COCOS_X_ROOT:$PATH' >> /root/.bashrc \
+    && echo 'export COCOS_CONSOLE_ROOT=/cocos2dx/tools/cocos2d-console/bin' >> /root/.bashrc \
+    && echo 'export PATH=$COCOS_CONSOLE_ROOT:$PATH' >> /root/.bashrc \
+    && echo 'export COCOS_TEMPLATES_ROOT=/cocos2dx/templates' >> /root/.bashrc \
+    && echo 'export PATH=$COCOS_TEMPLATES_ROOT:$PATH' >> /root/.bashrc \
+    && echo 'export COCOS_CONSOLE_ROOT=/cocos2dx/tools/cocos2d-console/bin' >> /root/.bashrc \
+    && echo 'export PATH=$COCOS_CONSOLE_ROOT:$PATH' >> /root/.bashrc \
+    && echo 'export COCOS_TEMPLATES_ROOT=/cocos2dx/templates' >> /root/.bashrc \
+    && echo 'export PATH=$COCOS_TEMPLATES_ROOT:$PATH' >> /root/.bashrc \
+    && echo 'export ANDROID_SDK_ROOT=/android-dev/android-sdk' >> /root/.bashrc \
+    && echo 'export PATH=$ANDROID_SDK_ROOT:$PATH' >> /root/.bashrc \
+    && echo 'export PATH=$ANDROID_SDK_ROOT/tools:$ANDROID_SDK_ROOT/platform-tools:$PATH' >> /root/.bashrc \
+    && echo 'export NDK_ROOT=/android-dev/android-ndk' >> /root/.bashrc \
+    && echo 'export PATH=$NDK_ROOT:$PATH' >> /root/.bashrc
+    ##&& . /root/.bashrc
 
 RUN apt-get -y autoclean && apt-get -y autoremove
 
