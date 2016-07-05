@@ -46,8 +46,9 @@ RUN rm -rf /tmp/*
 #   download frameworks
 #=============================
 #cocos2dx dev
-RUN git clone --depth 1 --branch cocos2d-x-3.10 https://github.com/cocos2d/cocos2d-x.git /cocos2dx
-RUN cd /cocos2dx && ./download-deps.py --remove-download yes
+RUN git clone https://github.com/cocos2d/cocos2d-x.git /cocos2dx
+RUN cd /cocos2dx && git checkout cocos2d-x-3.11
+RUN /cocos2dx/download-deps.py --remove-download yes
 RUN cd /cocos2dx && git submodule update --init
 
 
